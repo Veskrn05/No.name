@@ -1,8 +1,125 @@
 <html>
-  <head>
-    
-  </head>
-  <body>
-    
-  </body>
+
+<head>
+    <meta charset="utf-8">
+    <title>NÁZEV ČASOPISU</title>
+    <link rel="shortcut icon" href="URL-IKONY" type="image/x-icon">
+    <link href="https://fonts.cdnfonts.com/css/rawline" rel="stylesheet">
+    <style>
+        .hlavni {
+            letter-spacing: 1px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+            padding: 20px;
+            max-width: 1280px;
+            border-radius: 30px;
+            background: #1c1c1c;
+        }
+
+        #footer {
+            background: #0f0f0f;
+            font-size: 1.2rem;
+            padding-top: .8rem;
+            padding-bottom: .8rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        body {
+            /*background-image: url("background2.png");*/
+            font-family: rawline, sans-serif;
+            color: #1c1c1c;
+
+        }
+
+        .nadpis {
+            border-bottom: 1px solid #1c1c1c;
+            color: white;
+            background-color: #1c1c1c;
+            border-radius: 15px;
+        }
+
+        .nadpis a {
+            text-decoration: underline;
+            color: white;
+            transition: .2s;
+        }
+
+        .navtop {
+            height: 60px;
+            width: 100%;
+            border: 0;
+
+        }
+
+        .navtop div {
+            margin: 0 auto;
+            height: 100%;
+        }
+
+        .navtop a,
+        p {
+            text-decoration: none;
+        }
+
+        .navtop div h2,
+        .navtop div a,
+        .navtop div form,
+        .navtop div p {
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .navtop div a:hover {
+            color: #bebebe;
+        }
+
+        .cast1 {
+            font-size: 15px;
+            padding: 0 0 0 20px;
+            float: left;
+            display: flex;
+            letter-spacing: 1px;
+            align-items: center;
+            text-transform: uppercase;
+        }
+
+        .cast2 {
+            font-size: 15px;
+            padding: 0 20px 0 0;
+            float: right;
+            display: flex;
+            letter-spacing: 1px;
+            align-items: center;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navtop">
+        <div class="nadpis">
+            <div class="cast1">
+                <h2 id="databazenadpis">NÁZEV ČASOPISU</h2>
+            </div>
+            <div class="cast2">
+                <a style="font-size: 20px;" href="prihlaseni_url">PŘIHLÁSIT</a>
+            </div>
+        </div>
+    </nav>
+    <div class="hlavni">
+    </div>
+    <footer id="footer">
+        <div style="text-align: left;margin-left: 2rem;color: white;">Code & design by 2+Noname</div>
+        <div style="text-align: right;margin-right: 2rem;color: white">NÁZEV ČASOPISU</div>
+    </footer>
+</body>
+
 </html>
