@@ -1,2 +1,2 @@
 # 2-Noname
-toto je read-me file
+toto je editovaný read-me file
