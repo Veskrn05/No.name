@@ -1,15 +1,54 @@
-
-<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>ČASOPIS</title>
+    <title>ČLÁNEK</title>
     <link href="https://fonts.cdnfonts.com/css/rawline" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.1/css/all.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
+        .pct {
+            width: 400px;
+            padding: 30px;
+        }
+
+        .vse {
+            letter-spacing: 1px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+            padding: 20px;
+            max-width: 1280px;
+            border-radius: 30px;
+            background: #0f0f0f;
+            display: flex;
+        }
+
+        .wrapper {
+            float: left;
+            width: 50%;
+
+        }
+
+        .druhy {
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+            margin-right: auto;
+            margin-left: auto;
+            float: right;
+            width: 50%;
+            text-align: center;
+        }
+
+        .druhy td {
+            text-align: justify;
+            vertical-align: top;
+            height: 3rem;
+            padding: 0 10px;
+        }
+
         body {
             font-family: rawline, sans-serif;
             background: #171717;
@@ -21,7 +60,6 @@
             color: white;
             text-decoration: underline 0.15em rgba(255, 255, 255, 0);
             transition: text-decoration-color 150ms;
-            margin: 2rem;
         }
 
         .odkaz:hover {
@@ -38,7 +76,7 @@
             color: white;
         }
 
-        .logo {
+        .databazenadpis {
             text-align: left;
         }
 
@@ -49,7 +87,6 @@
             margin-bottom: 2rem;
             border-radius: 30px;
             background: #0f0f0f;
-	    text-align:center;
         }
 
         .search-box {
@@ -70,17 +107,62 @@
             background: #1c1c1c;
         }
 
-        .search-box input[type="text"] {
+        .result {
+            position: absolute;
+            border-radius: 15px;
+            z-index: 999;
+            top: 100%;
+            height: 100%;
+            font-size: 15px;
+        }
+
+        .search-box input[type="text"],
+        .result {
             color: white;
             box-sizing: border-box;
             border-radius: 30px;
             font-family: rawline, sans-serif;
         }
 
+        .result a {
+            text-decoration: none;
+            width: 260px;
+            color: white;
+            border: 2px solid white;
+            border-top: none;
+            border-radius: 15px;
+            padding: 7px 20px 7px 20px;
+            text-align: center;
+            height: 100%;
+            background: #1c1c1c;
+            cursor: pointer;
+        }
+
+        .result a:hover {
+            border-radius: 15px;
+            background: #333232;
+            height: 100%;
+            text-decoration: underline;
+        }
+
+        .result p {
+            text-decoration: none;
+            width: 260px;
+            color: white;
+            border: 2px solid white;
+            border-top: none;
+            border-radius: 15px;
+            padding: 7px 20px 7px 20px;
+            text-align: center;
+            height: 100%;
+            background: #1c1c1c;
+        }
+
         .navtop {
             height: 60px;
             width: 100%;
             border: 0;
+
         }
 
         .navtop div {
@@ -129,6 +211,7 @@
 
         #pctr {
             padding: 0 5px 0 0;
+
         }
 
         #pctr1 {
@@ -139,33 +222,60 @@
             text-align: center;
         }
 
-        table {
-            width: 100%;
-            text-align: center;
-            margin-left: auto;
+        #tabulka {
             margin-right: auto;
-            border-bottom: 1px solid white;
+            margin-left: auto;
         }
 
-        td {
-            height: 5rem;
-            width: 10rem;
-            text-align: center;
+        .thumbnail {
+            height: 110px;
+            padding: 10px 0 10px 0;
+            width: 75px;
+            transition: all ease 0.2s;
         }
 
-        .table-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 2rem;
-            border-bottom: 1px solid white;
+        .thumbnail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
         }
 
-        .table-left {
-            text-align: left;
+        .content {
+            width: 1000px;
+            margin: 0 auto;
         }
 
-        .table-right {
-            text-align: right;
+        .content h2 {
+            margin: 0;
+            padding: 25px 0;
+            font-size: 22px;
+            border-bottom: 1px solid #e0e0e3;
+            color: white;
+        }
+
+        .content>p,
+        .content>div {
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+            margin: 25px 0;
+            padding: 25px;
+            background-color: #171717;
+            border: 1px solid #e0e0e3;
+        }
+
+        .content>p table td,
+        .content>div table td {
+            padding: 5px;
+        }
+
+        .content>p table td:first-child,
+        .content>div table td:first-child {
+            font-weight: bold;
+            color: white;
+            padding-right: 15px;
+        }
+
+        .content>div p {
+            padding: 5px;
+            margin: 0 0 10px 0;
         }
     </style>
 </head>
@@ -185,13 +295,30 @@
                     <div class="result"></div>
                 </form>
                 <a href="profile.php"><i id="pctr" class='fas fa-user-circle'></i>ADMIN</a>
+                <a id=logout href="logout.php"><i id=pctr1 class="fas fa-sign-out-alt"></i>ODHLÁSIT</a>
             </div>
         </div>
     </nav>
-<br><br>  
-    <div class="hlavni">
-	<h1>NEJČTENĚJŠÍ, NEJLÉPE HODNOCENÉ NEBO NEJNOVĚJŠÍ ČLÁNKY</h1>
-     </div>
+    <div class="content">
+        <h2>ADMIN</h2>
+        <div>
+            <p>VÁŠ ÚČET</p>
+            <table>
+                <tr>
+                    <td>Uživatelské jméno: </td>
+                    <td>ADMIN</td>
+                </tr>
+                <tr>
+                    <td>Heslo: </td>
+                    <td>HESLO</td>
+                </tr>
+                <tr>
+                    <td>E-mail: </td>
+                    <td>emailpouzitypriregistraci@gmail.com</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>
