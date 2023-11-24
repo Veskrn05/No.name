@@ -1,1 +1,1 @@
-ukázková web stránka zde: https://alpha.kts.vspj.cz/~veskrn05/RSP/
+ukázková web stránka zde: http://veskrna-roman.4fan.cz/casopis/index.php
