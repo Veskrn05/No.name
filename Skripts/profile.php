@@ -404,20 +404,16 @@
                         <span class="badge" id="badge"><?php echo $result->num_rows; ?></span>
                     </div>
             <?php endif; ?>
-        
-                <?php if (isset($_SESSION['username'])) : ?>
-    <b><a id="profile" href="profile.php"></b>
+    <strong><a id="profile" href="profile.php">
         <div id="profile">
     <?php 
     if (empty($avatar)) 
-        echo "<p><b><i id='pctr' class='fas fa-user-circle'></i>" . $_SESSION['username'] . "</b></p>";
+        echo "<p><strong><i id='pctr' class='fas fa-user-circle'></i>" . $_SESSION['username'] . "</strong></p>";
     else
         echo "<div id='avatar-container'><img id='avatarimg' src='$avatar' alt='Avatar'></div><p>" . $_SESSION['username'] . "</p>";
-    ?></div>
-</div></a>
-<?php else: ?>
-    <p><b><a href="prihlaseni/login.php">Přihlásit se</a></b></p>
-<?php endif; ?>
+    ?>
+</div>
+<a id="logout" href="logout.php"><i id="pctr1" class="fas fa-sign-out-alt"></i>ODHLÁSIT</a> </p>
             </div>
         </div>
     </nav>
