@@ -23,6 +23,32 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.1/css/all.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.search-box input[type="text"]').on("input", function () {
+                var inputVal = $(this).val().trim();
+                var resultDropdown = $(this).siblings(".result");
+                if (inputVal.length) {
+                    $.get("backend-search.php", { term: inputVal }).done(function (data) {
+                        resultDropdown.html(data);
+                    });
+                } else {
+                    resultDropdown.empty();
+                }
+            });
+            $(document).on("click", ".result a", function () {
+                $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+                $(this).parent(".result").empty();
+            });
+        });
+        $(document).keypress(
+            function (event) {
+                if (event.which == '13') {
+                    event.preventDefault();
+                }
+            }
+        );
+    </script>
     <style>
         body {
             font-family: rawline, sans-serif;
@@ -65,29 +91,68 @@
             background: #0f0f0f;
         }
 
-        .search-box {
-            padding: 0 20px 0 0;
-            position: relative;
-            height: 100%;
-            font-size: 14px;
-        }
-
-        .search-box input[type="text"] {
-            height: 32px;
-            padding: 5px 10px;
-            letter-spacing: 1px;
-            border: 1px solid #CCCCCC;
-            font-size: 14px;
-            width: 100%;
-            background: #1c1c1c;
-        }
-
-        .search-box input[type="text"] {
-            color: white;
-            box-sizing: border-box;
-            border-radius: 30px;
-            font-family: rawline, sans-serif;
-        }
+          .search-box{
+        padding: 0 20px 0 0;
+        width: 300px;
+        position: relative;
+        height:100%;
+        font-size: 14px;
+    }
+    .search-box input[type="text"]{
+        height: 32px;
+        padding: 5px 10px;
+        letter-spacing: 1px;
+        border: 1px solid #CCCCCC;
+        font-size: 14px;
+        width:100%;
+        background: #1c1c1c;
+    }
+    .result{
+        position: absolute; 
+        border-radius:15px;
+        z-index: 999;
+        top: 3rem;
+        height:100%;
+        font-size:15px;
+    }
+    .search-box input[type="text"], .result{
+        color:white;
+        box-sizing: border-box;
+        border-radius:5px;
+        font-family: rawline,sans-serif;
+    }
+    .result a{
+        text-decoration:none;
+        width:260px;
+        min-height:60px;
+        color:white;
+        border:2px solid white;
+        /*border-top: none;*/
+        border-radius: 5px;
+        padding: 7px 20px 7px 20px;
+        background: #1c1c1c;
+        cursor: pointer;
+    }
+    .result a:hover{
+        background: #333232;
+        text-decoration:underline;
+    }
+    .result p{
+        text-decoration:none;
+        width:260px;
+        color:white;
+        top: 100%;
+        border:2px solid white;
+        /*border-top: none;*/
+        border-radius: 5px;
+        padding: 7px 20px 7px 20px;
+        text-align:center;
+        height:25px;
+        background: #1c1c1c;
+        position: absolute;
+    top: -1rem;
+    }
+    
 
         .navtop {
             height: 60px;
@@ -200,14 +265,27 @@
 #b{
     text-decoration:underline;
 }
+ #logo {
+            width:10rem;
+        }
+        #notifikace{
+        display:contents;
+    }
+    #notifikace .badge {
+    background-color: red;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 25px;
+    font-size: 9px;
+}
     </style>
 </head>
 
 <body>
-    <nav class="navtop">
+       <nav class="navtop">
         <div class="nadpis">
             <div class="cast1">
-                <h2 id="logo"><a href="http://veskrna-roman.4fan.cz/casopis/index.php">LOGO</a></h2>
+                <a href="http://veskrna-roman.4fan.cz/casopis/index.php"><img id="logo" src="images/logo.png"></a>
                 <h2 id="seznamclanku"><a href="http://veskrna-roman.4fan.cz/casopis/seznam.php">Seznam článků</a>
        <?php 
                 if($role =='Administrator'){
@@ -222,6 +300,20 @@
                     <div class="result"></div>
                 </form>
                 <?php if (isset($_SESSION['username'])) : ?>
+                    <?php
+                        $stmt = $db->prepare('SELECT id, obsah, odkaz FROM notifikace WHERE username = ? AND precteno = 0 ORDER BY cas DESC');
+                        $stmt->bind_param('s', $_SESSION['username']);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $stmt->close();
+                    ?>
+                    <div id="notifikace">
+                        <a href="notifikace.php"><i class="fas fa-bell"></i></a>
+                        <span class="badge" id="badge"><?php echo $result->num_rows; ?></span>
+                    </div>
+            <?php endif; ?>
+        
+                <?php if (isset($_SESSION['username'])) : ?>
     <b><a id="profile" href="profile.php"></b>
         <div id="profile">
     <?php 
@@ -229,9 +321,8 @@
         echo "<p><b><i id='pctr' class='fas fa-user-circle'></i>" . $_SESSION['username'] . "</b></p>";
     else
         echo "<div id='avatar-container'><img id='avatarimg' src='$avatar' alt='Avatar'></div><p>" . $_SESSION['username'] . "</p>";
-    ?>
-</div>
- </a>
+    ?></div>
+</div></a>
 <?php else: ?>
     <p><b><a href="prihlaseni/login.php">Přihlásit se</a></b></p>
 <?php endif; ?>
@@ -239,7 +330,7 @@
         </div>
     </nav>
     <?php
-    $sql = "SELECT * FROM uzivatele";
+    $sql = "SELECT * FROM uzivatele ORDER BY id";
     
     // Provedení SQL dotazu
     $result = $db->query($sql);

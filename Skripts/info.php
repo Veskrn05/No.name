@@ -545,6 +545,7 @@ margin:2rem;
 #koment{
     font-size: 16px;
     margin-bottom: 1rem;
+    margin-right:2rem;
 }
  #be {
         font-weight: bold;
@@ -587,6 +588,10 @@ margin:2rem;
     padding: 1px 5px;
     border-radius: 25px;
     font-size: 9px;
+}
+#flex{
+    display:flex;
+    justify-content: space-between;
 }
     </style>
 </head>
@@ -828,10 +833,11 @@ if ($result_select_comments->num_rows > 0) {
         echo "<div class='vsechnykomenty'>";
         echo "<div id='kdo'>" . $row["kdo"]."</div>";
     echo "<div  id='kdy'>".(new DateTime($row["kdy"]))->format('d.m.Y H:i') . "</div>";
-        echo "<div id='koment'>" . $row["komentar"] . "</div>";
-        if ($role == 'Administrator') {
-            echo "<a class='odkaz' href='odstranitkomentar.php?oc=$oc1'><b id='be'>Odstranit komentář</b></a>";
+        echo "<div id='flex'><div id='koment'>" . $row["komentar"] . "</div>";
+        if ($role == 'Administrator'||$row["kdo"]==$_SESSION['username']) {
+            echo "<a class='odkaz' href='odstranitkomentar.php?oc=$oc1'><b id='be'>Odstranit</b></a>";
         }
+        echo "</div>";
         echo "</div>";
     }
 } else {

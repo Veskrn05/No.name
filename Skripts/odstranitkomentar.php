@@ -9,10 +9,6 @@ $stmt_role->bind_result($role);
 $stmt_role->fetch();
 $stmt_role->close();
 
-if ($role != 'Administrator') {
-    header('Location: index.php');
-    exit;
-}
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["oc"])) {
     $commentId = $_GET["oc"];
 

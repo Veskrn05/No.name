@@ -463,7 +463,7 @@ margin:2rem;
         </div>
     </nav>
     <?php 
-                if($role =='Administrator'){
+                if($role =='Administrator' || $role == 'Autor'){
                 echo "<h2 style='padding: 0 0 0 20px;' id='pridatclanek'><a href='http://veskrna-roman.4fan.cz/casopis/pridat.php'>Přidat článek</a></h2>";
             }
             ?>

@@ -10,7 +10,7 @@ $stmt_role->bind_result($role);
 $stmt_role->fetch();
 $stmt_role->close();
 
-if ($role != 'Administrator') {
+if ($role != 'Administrator' && $role != 'Autor') {
     header('Location: index.php');
     exit;
 }
